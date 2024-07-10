@@ -1,0 +1,32 @@
+services:
+  roadruner:
+    build: .
+    ports:
+      - 83:83
+      - 8081:8081
+      - 8091:8091
+      - 5173:5173
+    network_mode: "host"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - .env:/var/www/html/.env
+      - ./package.json:/var/www/html/package.json
+      - ./supervisord.conf:/etc/supervisord.conf
+      - ./app:/var/www/html/app
+      - ./composer.json:/var/www/html/composer.json
+      - ./config:/var/www/html/config
+      - ./database:/var/www/html/database
+      - ./public:/var/www/html/public
+      - ./bootstrap:/var/www/html/bootstrap
+      #- ./vendor:/var/www/html/vendor
+      # - ./storage:/var/www/html/storage
+      - ./resources:/var/www/html/resources
+      - ./routes:/var/www/html/routes\
+      # - ./tests:/var/www/html/tests
+      # - caddy_data:/data
+      # - caddy_config:/config
+    environment:
+      -CHOKIDAR_USEPOLLING: 'true'
+    tty: true
+
