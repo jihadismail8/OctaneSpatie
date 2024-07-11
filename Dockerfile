@@ -44,6 +44,7 @@ COPY . /var/www/html
 RUN composer install
 RUN composer dumpautoload --optimize
 RUN ./vendor/bin/rr get-binary
+RUN php artisan migrate
 RUN php artisan migrate:fresh
 RUN php artisan db:seed --class=RolesAndPermissionsSeeder
 RUN php artisan vendor:publish --tag=telescope-assets
